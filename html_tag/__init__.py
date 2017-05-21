@@ -6,7 +6,7 @@ import io
 class Tag(object):
     """Generic class for tags"""
     tag = 'TXT'
-    _CLOSING_TAG = ['H1', 'P']
+    _CLOSING_TAG = ['H1', 'H2', 'H3', 'P', 'DIV']
 
     def __init__(self, *content, **attrs):
         self.attrs = attrs
@@ -38,5 +38,14 @@ class P(Tag):
 class H1(Tag):
     tag = 'H1'
 
-class TEXT(Tag):
-    tag = 'TEXT'
+
+class H2(Tag):
+    tag = 'H2'
+
+
+class H3(Tag):
+    tag = 'H3'
+
+
+class DIV(Tag):
+    tag = 'DIV'

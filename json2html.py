@@ -1,5 +1,5 @@
 import json
-from html_tag import (P, H1)
+from html_tag import (P, H1, H2, H3, DIV)
 from collections import OrderedDict
 
 
@@ -14,7 +14,7 @@ class Json2Html(object):
 
     def dict_to_html(self, dict_in):
         str_out = ''
-        _keys_to_tag = {'body': P, 'title': H1}
+        _keys_to_tag = {'body': P, 'title': H1, 'h1': H1, 'h2': H2, 'h3': H3, 'div': DIV}
         for key in dict_in.keys():
             if key in _keys_to_tag:
                 str_out += str(_keys_to_tag[key](dict_in[key]))
