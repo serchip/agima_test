@@ -1,5 +1,5 @@
 import json
-from html_tag import (P, H1, H2, H3, DIV, UL, LI)
+from html_tag import (P, H1, H2, H3, DIV, UL, LI, SPAN, CONTENT, HEADER)
 from collections import OrderedDict
 
 
@@ -14,10 +14,14 @@ class Json2Html(object):
 
     def dict_to_html(self, dict_in):
         str_out = ''
-        _keys_to_tag = {'body': P, 'title': H1, 'h1': H1, 'h2': H2, 'h3': H3, 'div': DIV}
+        _keys_to_tag = {'body': P, 'title': H1, 'h1': H1, 'h2': H2, 'h3': H3, 'div': DIV, 'p': P, 'span': SPAN,
+                        'content': CONTENT, 'header': HEADER}
         for key in dict_in.keys():
             if key in _keys_to_tag:
-                str_out += str(_keys_to_tag[key](dict_in[key]))
+                if isinstance(dict_in[key], list):
+                    str_out += str(_keys_to_tag[key](UL(self.list_to_dict_task3(dict_in[key]))))
+                else:
+                    str_out += str(_keys_to_tag[key](dict_in[key]))
         return str_out
 
     def list_to_dict(self, list_in):
@@ -42,4 +46,7 @@ class Json2Html(object):
         return str_out_line
 
     def output_task3(self):
+        if isinstance(self.dict_store, dict):
+            return self.dict_to_html(self.dict_store)
+
         return UL(self.list_to_dict_task3(self.dict_store))

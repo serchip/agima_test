@@ -35,6 +35,20 @@ class TestModules(unittest.TestCase):
                          '<ul><li><h3>Title #1</h3><div>Hello, World 1!</div></li><li><h3>Title #2</h3><div>Hello, World 2!</div></li></ul>'
                          )
 
+    def test_task4_1(self):
+        j2h = Json2Html()
+        j2h.load_json_from_file(open('sources/source_task4_1.json'))
+        self.assertEqual(str(j2h.output_task3()),
+                         '<ul><li><span>Title #1</span><content><ul><li><p>Example 1</p><header>header 1</header></li></ul></content></li><li><div>div 1</div></li></ul>'
+                         )
+
+    def test_task4_2(self):
+        j2h = Json2Html()
+        j2h.load_json_from_file(open('sources/source_task4_2.json'))
+        self.assertEqual(str(j2h.output_task3()),
+                         '<p>hello1</p>'
+                         )
+
 
 if __name__ == '__main__':
     unittest.main()
