@@ -49,6 +49,22 @@ class TestModules(unittest.TestCase):
                          '<p>hello1</p>'
                          )
 
+    def test_parse(self):
+        el, el_id, el_class = Json2Html.css_to_html('p.my-class#my-id')
+        self.assertEqual([el, el_id, el_class], ['p', set(['my-id']), set(['my-class'])])
+        el, el_id, el_class = Json2Html.css_to_html('p#my-id')
+        self.assertEqual([el, el_id, el_class], ['p', set(['my-id']), set([])])
+        el, el_id, el_class = Json2Html.css_to_html('p.my-class1.my-class2')
+        self.assertEqual([el, el_id, el_class], ['p', set([]), set(['my-class1', 'my-class2'])])
+        el, el_id, el_class = Json2Html.css_to_html('p.my-class')
+        self.assertEqual([el, el_id, el_class], ['p', set([]), set(['my-class'])])
+
+    def test_task5(self):
+        j2h = Json2Html()
+        j2h.load_json_from_file(open('sources/source_task5.json'))
+        self.assertEqual(str(j2h.output_task3()),
+                         '<p id="my-id" class="my-class">hello</p><p class="my-class2 my-class1">example&lt;a&gt;asd&lt;/a&gt;</p>'
+                         )
 
 if __name__ == '__main__':
     unittest.main()

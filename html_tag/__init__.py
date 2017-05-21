@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import io
+import cgi
 
 
 class Tag(object):
@@ -20,12 +21,19 @@ class Tag(object):
     def __str__(self):
         res = io.StringIO()
         w = res.write
-        if type(self) != str:
-            w(u"<%s>" % self.tag.lower())
-        else:
-            w(u'%s' % self)
+        w(u"<%s" % self.tag.lower())
+        attr_list = []
+        for k in self.attrs:
+            value = self.attrs[k]
+            if value:
+                attr_list.append(' %s="%s"' % (k, ' '.join(value)))
+        w(u"".join(attr_list))
+        w(u">")
         for child in self.children:
-            w(u'%s' % str(child))
+            if isinstance(child, unicode):
+                w(u'%s' % cgi.escape(child))
+            else:
+                w(u'%s' % str(child))
         if self.tag in self._CLOSING_TAG:
             w(u"</%s>" % self.tag.lower())
         return res.getvalue()
