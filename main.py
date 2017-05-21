@@ -10,4 +10,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     jh = Json2Html()
     jh.load_json_from_file(args.file)
-    print(jh.output())
+    print(jh.output_task3())

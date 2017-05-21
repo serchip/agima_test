@@ -28,6 +28,13 @@ class TestModules(unittest.TestCase):
                          '<h3>Title #1</h3><div>Hello, World 1!</div>'
                          )
 
+    def test_task3(self):
+        j2h = Json2Html()
+        j2h.load_json_from_file(open('sources/source_task3.json'))
+        self.assertEqual(str(j2h.output_task3()),
+                         '<ul><li><h3>Title #1</h3><div>Hello, World 1!</div></li><li><h3>Title #2</h3><div>Hello, World 2!</div></li></ul>'
+                         )
+
 
 if __name__ == '__main__':
     unittest.main()

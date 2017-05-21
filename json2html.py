@@ -1,5 +1,5 @@
 import json
-from html_tag import (P, H1, H2, H3, DIV)
+from html_tag import (P, H1, H2, H3, DIV, UL, LI)
 from collections import OrderedDict
 
 
@@ -31,3 +31,15 @@ class Json2Html(object):
 
     def output(self):
         return self.list_to_dict(self.dict_store)
+
+    def list_to_dict_task3(self, list_in):
+        str_out_line = ''
+        for line in list_in:
+            if isinstance(line, dict):
+                str_out_line += str(LI(self.dict_to_html(line)))
+            else:
+                str_out_line += str(UL(self.list_to_dict(line)))
+        return str_out_line
+
+    def output_task3(self):
+        return UL(self.list_to_dict_task3(self.dict_store))
